@@ -4,13 +4,14 @@
         "project": "House Chores",
         "elapsed": 5456099,
         "id": "0a4a79cb-b06d-4cb1-883d-549a1e3b66d7",
-        "runningSince": 1540417370994
+        "runningSince": 1543444862046
     },
     {
         "title": "Clear paper jam",
         "project": "Office Chores",
         "elapsed": 1273998,
-        "id": "a73c1d19-f32d-4aff-b470-cea4e792406a"
+        "id": "a73c1d19-f32d-4aff-b470-cea4e792406a",
+        "runningSince": 1543444865096
     },
     {
         "title": "Ponder origins of universe",
