@@ -4,3 +4,11 @@
 **/semantic/
 **/semantic.json
 **/dist/
+
+# testing
+**/coverage
+
+# production
+**/build
+
+**/.env
