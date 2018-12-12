@@ -24,13 +24,12 @@
     "styleguide:build": "styleguidist build"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
     "amd-define-factory-patcher-loader": "^1.0.0",
-    "babel": "^6.23.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "babel-loader": "^8.0.4",
     "css-loader": "^0.28.11",
     "dotenv": "^4.0.0",
     "file-loader": "^1.1.11",
@@ -43,6 +42,7 @@
     "react-styleguidist": "^8.0.6",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
-    "webpack": "^3.12.0"
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
   }
 }

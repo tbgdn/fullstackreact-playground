@@ -160,4 +160,4 @@ class Weather extends React.Component {
   }
 }
 
-module.exports = Weather;
+export default Weather;
