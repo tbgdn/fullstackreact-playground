@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from "./Switch.css";
 
-const CREDIT_CARD = "CreditCard";
-const BITCOIN = "Bitcoin";
+const PAYMENT_CHOICES = ["CreditCard", "Bitcoin", "Cash", "Coupon"];
 
 class Switch extends React.Component {
     state = {
-        paymentMethod: BITCOIN
+        paymentMethod: PAYMENT_CHOICES[0]
     };
     renderChoice = (choice) => {
         const cssClasses = [];
@@ -31,12 +30,27 @@ class Switch extends React.Component {
     render(){
         return (
             <div className="switch">
-                {this.renderChoice(CREDIT_CARD)}
-                {this.renderChoice(BITCOIN)}
+                {PAYMENT_CHOICES.map((choice) => (
+                    <Choice label={choice}
+                            onClick={this.handleChoiceOnClick(choice)}
+                            active={this.state.paymentMethod === choice} />
+                ))}
                 Pay with: {this.state.paymentMethod}
             </div>
         );
     }
 }
+
+const Choice = (props) => {
+    let cssClasses =  [];
+    if (props.active){
+        cssClasses.push(styles.active);
+    }
+    return (
+        <div onClick={props.onClick} className={cssClasses} >
+            {props.label}
+        </div>
+    );
+};
 
 export default Switch;
