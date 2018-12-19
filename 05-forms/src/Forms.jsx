@@ -3,7 +3,7 @@ import Buttons from "./Buttons";
 
 const Forms = () => (
     <div>
-        <h1>React forms</h1>
+        <h1 className="ui header">React forms</h1>
         <Buttons />
     </div>
 );

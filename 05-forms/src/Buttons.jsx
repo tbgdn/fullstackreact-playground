@@ -1,15 +1,24 @@
 import React from "react";
 
 class Buttons extends React.Component{
+    handleButtonClick = (event) => {
+        let button = event.target;
+        console.log(`The user clicked ${button.name}: ${button.value}.`);
+    };
     render(){
-        const renderButton = (props) => (
-            <button className="ui button">{props.label}</button>
+        const Button = (props) => (
+            <button className="ui button"
+                    onClick={props.handleClick}
+                    name={props.label}
+                    value={props.label.toLowerCase()}>
+                {props.label}
+            </button>
         );
         return (
             <div>
-                <h1>What do you think of React?</h1>
-                {renderButton({label: "Great"})}
-                {renderButton({label: "Amazing"})}
+                <div className="sub header">What do you think of React?</div>
+                <Button label="Great" handleClick={this.handleButtonClick}/>
+                <Button label="Amazing" handleClick={this.handleButtonClick}/>
             </div>
         );
     };
