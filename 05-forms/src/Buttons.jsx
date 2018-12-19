@@ -15,8 +15,8 @@ class Buttons extends React.Component{
             </button>
         );
         return (
-            <div>
-                <div className="sub header">What do you think of React?</div>
+            <div className="ui segment">
+                <h2 className="ui header">What do you think of React?</h2>
                 <Button label="Great" handleClick={this.handleButtonClick}/>
                 <Button label="Amazing" handleClick={this.handleButtonClick}/>
             </div>
