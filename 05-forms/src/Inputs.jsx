@@ -2,13 +2,16 @@ import React, {Component} from "react";
 
 class Inputs extends Component{
     state = {
+        name: "",
         names: []
     };
     handleSubmit = (event) => {
-        let name = this.refs.name.value;
-        this.setState({names: [...this.state.names, name]});
-        this.refs.name.value = "";
+        let names = [...this.state.names, this.state.name];
+        this.setState({names: names, name: ""});
         event.preventDefault();
+    };
+    handleNameChange = (event) => {
+        this.setState({name: event.target.value});
     };
     render(){
         return (
@@ -16,14 +19,20 @@ class Inputs extends Component{
                 <h2 className="ui header">Sign Up Sheet</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="ui action input">
-                        <input placeholder="Name" type="text" ref="name"/>
+                        <input placeholder="Name"
+                               type="text"
+                               value={this.state.name}
+                               onChange={this.handleNameChange}/>
                         <button className="ui primary button">Add</button>
                     </div>
                 </form>
-                <div className="ui list">
-                    {
-                        this.state.names.map((name, index) => (<div key={index} className="item">{name}</div>))
-                    }
+                <div>
+                    <h3>Names</h3>
+                    <div className="ui list">
+                        {
+                            this.state.names.map((name, index) => (<div key={index} className="item">{name}</div>))
+                        }
+                    </div>
                 </div>
             </div>
         );
