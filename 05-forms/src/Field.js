@@ -10,7 +10,6 @@ class Field extends Component{
         value: PropTypes.string,
         validate: PropTypes.func,
         onChange: PropTypes.func.isRequired,
-
     };
     state = {
         value: this.props.value,
@@ -24,7 +23,10 @@ class Field extends Component{
             value,
             error
         }));
-        this.props.onChange({name, value, error});
+        this.props.onChange(name, value, error);
+    };
+    static getDerivedStateFromProps(nextProps){
+        return {value: nextProps.value};
     };
     render(){
         let iconClasses = classnames("icon", {

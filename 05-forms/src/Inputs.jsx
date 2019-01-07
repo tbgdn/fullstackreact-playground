@@ -8,53 +8,56 @@ class Inputs extends Component{
             name: "",
             email: ""
         },
+        fieldErrors: [],
         people: []
     };
     handleSubmit = (event) => {
+        event.preventDefault();
         this.setState((state) => {
-            let person = this.state.fields;
-            let fieldErrors = this.validate(person);
-            if (Object.keys(fieldErrors).length){
-                return {fieldErrors};
-            }else{
+            if (this.isFormValid()){
                 return {
                     people: [...state.people, state.fields],
                     fields: {
                         name: "",
                         email: ""
                     },
-                    fieldErrors: {}
+                    fieldErrors: []
                 };
+            }else{
+                return Object.assign({}, state);
             }
         });
-        event.preventDefault();
     };
     handleInputChange = (name, value, error) => {
         this.setState((state) => {
             let fields = Object.assign({}, state.fields);
+            let fieldErrors = state.fieldErrors
+                .filter((err) => err.field !== name);
+            let errorMessage = {
+                field: name,
+                message: error
+            };
+
             fields[name] = value;
-            return fields;
+            return {
+                fields,
+                fieldErrors: error ? [...fieldErrors, errorMessage] : fieldErrors
+            };
         });
     };
     isFormValid = () => {
-        return !this.validateName(this.state.fields.name) &&
-            !this.validateEmail(this.state.fields.email);
+        let person = this.state.fields;
+        if (!person.name) return false;
+        if (!person.email) return false;
+        return this.state.fieldErrors.length === 0;
     };
-    validateName = (name) => {
-        if (name){
-            return false;
+    isNameInvalid = (name) => (name ? false : "Name is required");
+    isEmailInvalid = (email) => {
+        if (email){
+            return isEmail(email) ? false : "Email must be valid";
         }else{
-            return "Name is required";
-        }
-    };
-    validateEmail = (email) => {
-        if (!email){
             return "Email is required";
         }
-        if (!isEmail(email)){
-            return "Email must be valid"
-        }
-        return false;
     };
     render(){
         return (
@@ -66,15 +69,15 @@ class Inputs extends Component{
                         iconClass="users"
                         name="name"
                         value={this.state.fields.name}
-                        validate={this.validateName}
+                        validate={this.isNameInvalid}
                         onChange={this.handleInputChange}
                     />
                     <Field
                         placeholder="Email"
                         iconClass="envelope"
                         name="email"
-                        value={this.state.fields.name}
-                        validate={this.validateEmail}
+                        value={this.state.fields.email}
+                        validate={this.isEmailInvalid}
                         onChange={this.handleInputChange}
                     />
                     <button className="ui button positive"
