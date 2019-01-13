@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = ({
@@ -31,12 +32,20 @@ module.exports = ({
         ]
     },
     plugins: [
-      new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin(),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+        })
     ],
     resolve:{
         extensions: [
             ".js",
             ".jsx"
         ]
+    },
+    externals: {
+        $: "jquery",
+        jQuery: "jquery"
     }
 });

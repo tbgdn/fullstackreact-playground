@@ -19,36 +19,40 @@ class Field extends Component{
         let name = this.props.name;
         let value = event.target.value;
         let error = this.props.validate ? this.props.validate(value) : false;
-        this.setState(() => ({
+        this.setState({
             value,
             error
-        }));
-        this.props.onChange(name, value, error);
+        });
+        this.props.onChange({name, value, error});
     };
-    static getDerivedStateFromProps(nextProps){
-        return {value: nextProps.value};
+    static getDerivedStateFromProps(nextProps, previousState){
+        return {
+            value: nextProps.value,
+            error: previousState.error
+        };
     };
     render(){
-        let iconClasses = classnames("icon", {
-            [this.props.iconClass]: this.props.iconClass,
-            "ellipsis": !this.props.iconClass,
-            "horizontal": !this.props.iconClass,
+        let inputClasses = classnames("form-control", {
+            "is-invalid": this.state.error
         });
         return (
-            <div className="field">
-                <div className="ui left icon input">
+            <div className="form-group">
+                <div className="input-group">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">Icon</span>
+                    </div>
                     <input type="text"
+                           className={inputClasses}
                            placeholder={this.props.placeholder}
                            name={this.props.name}
                            value={this.state.value}
                            onChange={this.handleInputChange}
                     />
-                    <i className={iconClasses}></i>
                 </div>
                 {
                     this.state.error ? (
-                        <div className="ui red inverted segment">
-                            <p>{this.state.error}</p>
+                        <div className="mt-1">
+                            <span className="text-danger">{this.state.error}</span>
                         </div>
                     ) : <span/>
                 }
