@@ -13,7 +13,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Chapter 09 - Redux"
+            title: "Chapter 09 - Redux Counter"
         })
     ],
     module: {
