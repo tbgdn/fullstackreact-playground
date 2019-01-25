@@ -1,10 +1,11 @@
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = ({
     mode: "development",
     devtool: "source-map",
     devServer: {
-        port: 3000,
+        port: 17050,
         open: "Chrome"
     },
     module: {
@@ -31,12 +32,20 @@ module.exports = ({
         ]
     },
     plugins: [
-      new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin(),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+        })
     ],
     resolve:{
         extensions: [
             ".js",
             ".jsx"
         ]
+    },
+    externals: {
+        $: "jquery",
+        jQuery: "jquery"
     }
 });
