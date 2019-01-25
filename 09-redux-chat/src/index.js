@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
-import Store from "./Store";
-import Reducers from "./Reducers";
-import Actions from "./Actions";
+import App from "./ui/App";
+import Store from "./domain/Store";
+import Reducers from "./domain/Reducers";
+import Actions from "./domain/Actions";
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 

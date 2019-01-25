@@ -1,12 +1,12 @@
 import ActionTypes from "./ActionTypes";
 
 export default class Actions{
-    static addMessage = (message) => ({
+    static addMessage = (text) => ({
         type: ActionTypes.ADD_MESSAGE,
-        message
+        text
     });
-    static deleteMessage = (index) => ({
+    static deleteMessage = (id) => ({
         type: ActionTypes.DELETE_MESSAGE,
-        index
+        id
     });
 };

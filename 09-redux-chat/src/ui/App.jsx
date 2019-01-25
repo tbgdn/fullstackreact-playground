@@ -1,24 +1,23 @@
 import React, {Component} from "react";
-import Store from "../Store";
-import Reducers from "../Reducers";
-import MessageView from "./MessageView";
+import {createStore} from "redux";
+import Reducers from "../domain/Reducers";
 import MessagesListView from "./MessagesListView";
 import MessageInput from "./MessageInput";
-import Actions from "../Actions";
+import Actions from "../domain/Actions";
 
 export default class App extends Component{
     constructor(props){
         super(props);
-        this.store = new Store(Reducers.allActionTypes);
+        this.store = createStore(Reducers.allActionTypes, {messages: []});
     }
     componentDidMount() {
         this.store.subscribe(() => this.forceUpdate());
     }
-    handleMessageDelete = (index) => {
-        this.store.dispatch(Actions.deleteMessage(index));
+    handleMessageDelete = (id) => {
+        this.store.dispatch(Actions.deleteMessage(id));
     };
-    handleMessageAdd = (message) => {
-        this.store.dispatch(Actions.addMessage(message));
+    handleMessageAdd = (text) => {
+        this.store.dispatch(Actions.addMessage(text));
     };
     render = () => {
         let messages = this.store.getState().messages;
