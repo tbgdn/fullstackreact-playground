@@ -1,38 +1,52 @@
 import React, {Component} from "react";
 import {createStore} from "redux";
 import Reducers from "../domain/Reducers";
-import MessagesListView from "./MessagesListView";
+import ThreadView from "./ThreadView";
 import MessageInput from "./MessageInput";
 import Actions from "../domain/Actions";
+import Threads from "../data/threads.json";
+import ThreadsNavigator from "./ThreadsNavigator";
+
+const initialState = Threads;
 
 export default class App extends Component{
     constructor(props){
         super(props);
-        this.store = createStore(Reducers.allActionTypes, {messages: []});
+        this.store = createStore(Reducers.allActionTypes, Threads);
     }
     componentDidMount() {
         this.store.subscribe(() => this.forceUpdate());
     }
-    handleMessageDelete = (id) => {
-        this.store.dispatch(Actions.deleteMessage(id));
+    handleMessageDelete = (threadId, id) => {
+        this.store.dispatch(Actions.deleteMessage(threadId, id));
     };
-    handleMessageAdd = (text) => {
-        this.store.dispatch(Actions.addMessage(text));
+    handleMessageAdd = (threadId, text) => {
+        this.store.dispatch(Actions.addMessage(threadId, text));
+    };
+    handleTabClick = (threadId) => {
+        this.store.dispatch(Actions.openThread(threadId));
+    };
+    handleNewThreadClick = () => {
+        this.store.dispatch(Actions.newThread());
     };
     render = () => {
-        let messages = this.store.getState().messages;
+        let state = this.store.getState();
+        let activeThread = state.threads.find(t => t.id === state.activeThreadId);
+        let tabs = state.threads.map(t => ({
+            id: t.id,
+            title: t.title,
+            active: t.id === state.activeThreadId
+        }));
         return (
             <div className="container">
                 <div className="card shadow-sm bg-white rounded">
-                    <div className="card-header">
-                        <h3>Redux Chat</h3>
-                    </div>
-                    <div className="card-body">
-                        <MessagesListView messages={messages} onDelete={this.handleMessageDelete}/>
-                    </div>
-                    <div className="card-footer">
-                        <MessageInput onAdd={this.handleMessageAdd}/>
-                    </div>
+                    <ThreadsNavigator tabs={tabs}
+                                      handleTabClick={this.handleTabClick}
+                                      handleNewThreadClick={this.handleNewThreadClick}
+                    />
+                    <ThreadView thread={activeThread}
+                                handleMessageDeletion={this.handleMessageDelete}
+                                handleMessageAddition={this.handleMessageAdd}/>
                 </div>
             </div>
 

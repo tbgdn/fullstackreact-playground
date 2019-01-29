@@ -13,17 +13,18 @@ document.body.appendChild(appMount);
 ReactDOM.render(<App/>, appMount);
 //
 
-const initialState = { messages: [] };
+const initialState = {threads: []};
 const store = new Store(Reducers.allActionTypes, initialState);
 const listener = () => {
     console.log("Current state: ", store.getState())
 };
 store.subscribe(listener);
 
-store.dispatch(Actions.addMessage("How does it look, Neil?"));
+store.dispatch(Actions.addThread("First", "1"));
+store.dispatch(Actions.addMessage("1", "How does it look, Neil?"));
 const stateV1 = store.getState();
-store.dispatch(Actions.addMessage("Looking good."));
+store.dispatch(Actions.addMessage("1","Looking good."));
 const stateV2 = store.getState();
 
-store.dispatch(Actions.deleteMessage(0));
+store.dispatch(Actions.deleteMessage("1",0));
 const stateV3 = store.getState();

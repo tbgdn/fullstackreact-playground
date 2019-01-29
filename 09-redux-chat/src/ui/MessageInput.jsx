@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default class MessageInput extends Component {
     static propTypes = {
-        onAdd: PropTypes.func.isRequired
+        handleNewMessage: PropTypes.func.isRequired
     };
     state = {
         value: ""
@@ -13,7 +13,7 @@ export default class MessageInput extends Component {
     };
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.onAdd(this.state.value);
+        this.props.handleNewMessage(this.state.value);
         this.setState({
             value: ""
         });
