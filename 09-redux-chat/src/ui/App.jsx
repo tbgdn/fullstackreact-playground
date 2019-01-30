@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {createStore} from "redux";
 import Reducers from "../domain/Reducers";
 import ThreadView from "./ThreadView";
-import MessageInput from "./MessageInput";
 import Actions from "../domain/Actions";
 import Threads from "../data/threads.json";
 import ThreadsNavigator from "./ThreadsNavigator";
@@ -12,7 +11,7 @@ const initialState = Threads;
 export default class App extends Component{
     constructor(props){
         super(props);
-        this.store = createStore(Reducers.allActionTypes, Threads);
+        this.store = createStore(Reducers.instance);
     }
     componentDidMount() {
         this.store.subscribe(() => this.forceUpdate());

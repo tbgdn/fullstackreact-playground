@@ -6,6 +6,7 @@ import Reducers from "./domain/Reducers";
 import Actions from "./domain/Actions";
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import {createStore} from "redux";
 
 let appMount = document.createElement("div");
 document.body.appendChild(appMount);
@@ -14,7 +15,7 @@ ReactDOM.render(<App/>, appMount);
 //
 
 const initialState = {threads: []};
-const store = new Store(Reducers.allActionTypes, initialState);
+const store = createStore(Reducers.instance);
 const listener = () => {
     console.log("Current state: ", store.getState())
 };
