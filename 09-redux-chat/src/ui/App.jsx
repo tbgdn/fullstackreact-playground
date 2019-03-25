@@ -5,6 +5,7 @@ import ThreadView from "./ThreadView";
 import Actions from "../domain/Actions";
 import Threads from "../data/threads.json";
 import ThreadsNavigator from "./ThreadsNavigator";
+import ThreadTabs from "./ThreadTabs";
 
 const initialState = Threads;
 
@@ -43,6 +44,7 @@ export default class App extends Component{
                                       handleTabClick={this.handleTabClick}
                                       handleNewThreadClick={this.handleNewThreadClick}
                     />
+                    <ThreadTabs store={this.store}/>
                     <ThreadView thread={activeThread}
                                 handleMessageDeletion={this.handleMessageDelete}
                                 handleMessageAddition={this.handleMessageAdd}/>
