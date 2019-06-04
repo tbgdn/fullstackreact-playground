@@ -19,7 +19,7 @@ export default class MessageView extends Component{
         <blockquote className="blockquote">
             <p className="mb-0">
                 <span className="h5">{this.props.message.text}</span>
-                <button className="btn btn-sm btn-outline-danger" onClick={this.handleDeleteClick}>
+                <button className="btn btn-sm btn-outline-danger ml-md-2" onClick={this.handleDeleteClick}>
                     <i className="fas fa-times"></i>
                 </button>
             </p>

@@ -2,6 +2,7 @@ import ActionTypes from "./ActionTypes";
 import {combineReducers} from "redux";
 
 const uuid = require("uuid/v1");
+const chance = require("chance").Chance();
 
 const defaultThreadId = uuid();
 const defaultThreadName = "Default";
@@ -39,7 +40,7 @@ const threads = (state = [{
                 ...state,
                 {
                     id: uuid(),
-                    title: uuid(),
+                    title: chance.first(),
                     messages: []
                 }
             ];

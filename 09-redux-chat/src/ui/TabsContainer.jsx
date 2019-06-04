@@ -17,11 +17,16 @@ const Tabs = (props) => (
                     </li>
                 ))
             }
+            <li className="nav-item ml-md-2" key="new-thread">
+                <a onClick={props.handleNewThreadClick} className="nav-link active" href="#">
+                    <i className="fas fa-plus"></i>
+                </a>
+            </li>
         </ul>
     </div>
 );
 
-class ThreadTabs extends Component {
+class TabsContainer extends Component {
     componentDidMount() {
         this.props.store.subscribe(() => this.forceUpdate());
     }
@@ -34,16 +39,15 @@ class ThreadTabs extends Component {
         }));
         return (
             <Tabs tabs={tabs}
-                  onClick={(id) => (
-                      this.props.store.dispatch(Actions.openThread(id))
-                  )}
+                  onClick={id => this.props.store.dispatch(Actions.openThread(id))}
+                  handleNewThreadClick={ () => this.props.store.dispatch(Actions.newThread())}
             />
         );
     }
 }
 
-ThreadTabs.propTypes = {
+TabsContainer.propTypes = {
     store: PropTypes.object.isRequired,
 };
 
-export default ThreadTabs;
+export default TabsContainer;
