@@ -1,20 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./ui/App";
-import Store from "./domain/Store";
 import Reducers from "./domain/Reducers";
 import Actions from "./domain/Actions";
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import {createStore} from "redux";
+import {Provider} from "react-redux";
 
 let appMount = document.createElement("div");
 document.body.appendChild(appMount);
 
-ReactDOM.render(<App/>, appMount);
+ReactDOM.render(
+    <Provider store={createStore(Reducers.instance)}>
+        <App/>
+    </Provider>,
+    appMount);
 //
 
-const initialState = {threads: []};
 const store = createStore(Reducers.instance);
 const listener = () => {
     console.log("Current state: ", store.getState())

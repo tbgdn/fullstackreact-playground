@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import PropTypes from "prop-types";
+import React from 'react';
 import Actions from "../domain/Actions";
+import {connect} from "react-redux";
 
 const Tabs = (props) => (
     <div className="card-header">
@@ -26,28 +26,24 @@ const Tabs = (props) => (
     </div>
 );
 
-class TabsContainer extends Component {
-    componentDidMount() {
-        this.props.store.subscribe(() => this.forceUpdate());
-    }
-    render() {
-        const state = this.props.store.getState();
-        const tabs = state.threads.map(t => ({
-            title: t.title,
-            active: t.id === state.activeThreadId,
-            id: t.id
-        }));
-        return (
-            <Tabs tabs={tabs}
-                  onClick={id => this.props.store.dispatch(Actions.openThread(id))}
-                  handleNewThreadClick={ () => this.props.store.dispatch(Actions.newThread())}
-            />
-        );
-    }
-}
-
-TabsContainer.propTypes = {
-    store: PropTypes.object.isRequired,
+const mapStateToTabProps = (state) => {
+    const tabs = state.threads.map(t => ({
+        title: t.title,
+        active: t.id === state.activeThreadId,
+        id: t.id
+    }));
+    return {
+        tabs
+    };
 };
 
-export default TabsContainer;
+const mapDispatchToTabsProps = (dispatch) => ({
+    onClick: (id) => {
+        dispatch(Actions.openThread(id))
+    },
+    handleNewThreadClick: () => {
+        dispatch(Actions.newThread())
+    }
+});
+
+export default connect(mapStateToTabProps, mapDispatchToTabsProps)(Tabs);

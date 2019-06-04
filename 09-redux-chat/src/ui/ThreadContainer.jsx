@@ -1,8 +1,8 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import MessageView from "./MessageView";
 import MessageInput from "./MessageInput";
 import Actions from "../domain/Actions";
+import {connect} from "react-redux";
 
 const ThreadView = (props) => (
     <div className="card-body">
@@ -23,26 +23,22 @@ const MessagesList = (props) => {
     );
 };
 
-class ThreadContainer extends Component {
-    componentDidMount() {
-        this.props.store.subscribe(() => this.forceUpdate());
+const mapStateToThreadProps = (state) => ({
+    thread: state.threads.find(t => t.id === state.activeThreadId)
+});
+
+const mapDispatchToThreadProps = (dispatch) => ({
+    dispatch: dispatch
+});
+
+const mergeThreadProps = (stateProps, dispatchProps) => ({
+    ...stateProps,
+    handleNewMessage: (text) => {
+        dispatchProps.dispatch(Actions.addMessage(stateProps.thread.id, text))
+    },
+    handleMessageDeletion: (id) => {
+        dispatchProps.dispatch(Actions.deleteMessage(stateProps.thread.id, id))
     }
+});
 
-    render = () => {
-        const state = this.props.store.getState();
-        const activeThreadId = state.activeThreadId;
-        const activeThread = state.threads.find(t => t.id === activeThreadId);
-        return (
-            <ThreadView thread={activeThread}
-                        handleMessageDeletion={id => this.props.store.dispatch(Actions.deleteMessage(activeThreadId, id))}
-                        handleNewMessage={text => this.props.store.dispatch(Actions.addMessage(activeThreadId, text))}
-            />
-        );
-    }
-}
-
-ThreadContainer.propTypes = {
-    store: PropTypes.object.isRequired
-};
-
-export default ThreadContainer;
+export default connect(mapStateToThreadProps, mapDispatchToThreadProps, mergeThreadProps)(ThreadView);
